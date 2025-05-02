@@ -1,0 +1,6 @@
+{
+	"python.analysis.typeCheckingMode": "basic",
+	"rust-analyzer.linkedProjects": [
+		"hw5/physicslib-ffi/Cargo.toml"
+	],
+}
