@@ -1,3 +1,10 @@
+"""
+This module provides collision detection and resolution functions for various physics objects,
+including ellipses, edges, and axis-aligned bounding boxes (AABBs). It includes methods to handle
+collisions between ellipses, between ellipses and edges, and a general collision handler for
+different types of physics objects.
+"""
+
 from __future__ import annotations
 import numpy as np
 from typing import TYPE_CHECKING
@@ -8,12 +15,12 @@ if TYPE_CHECKING:
 
 def ellipse_ellipse(e1: Ellipse, e2: Ellipse):
     """
-    Check if two circles are colliding. Resolve the collision if they are.
-    :param c1: Circle 1
-    :param c2: Circle 2
+    Check if two ellipses are colliding and resolve the collision if they are.
+
+    :param e1: The first ellipse.
+    :param e2: The second ellipse.
     :return: None
     """
-
     from physics import restitution
 
     delta = e2.center - e1.center
@@ -87,11 +94,11 @@ def ellipse_ellipse(e1: Ellipse, e2: Ellipse):
 
 def ellipse_edge(e: Ellipse) -> None:
     """
-    Check if an ellipse is colliding with an edge. Resolve the collision if it is.
-    :param c: Ellipse
+    Check if an ellipse is colliding with an edge and resolve the collision if it is.
+
+    :param e: The ellipse to check for collision with an edge.
     :return: None
     """
-
     from physics import restitution, bb_scene
 
     axis_w = e.effective_radius(np.array([1., 0.]))
@@ -112,6 +119,14 @@ def ellipse_edge(e: Ellipse) -> None:
 
 
 def collide(a: PhysicsObject, b: PhysicsObject):
+    """
+    General collision handler for two physics objects. Determines the types of the objects
+    and delegates to the appropriate collision resolution function.
+
+    :param a: The first physics object.
+    :param b: The second physics object.
+    :return: None
+    """
     from physics import AABB, Edge, Ellipse
 
     if isinstance(a, Ellipse) and isinstance(b, Ellipse):
